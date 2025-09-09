@@ -1,13 +1,20 @@
+import {useEffect,useState} from 'react'
 import './style.css'
 import Lixeira from "../../assets/lixeira.svg"
+import api from "../../services/api"
 
 function Home() {
-  const usuarios =[{
-    id:1,
-    nome:"Kevyn Marques Santana",
-    email:"kevyn@email.com",
-    idade:18
-  }]
+  const [usuarios,setUsuarios] = useState([])
+
+  async function getUsuarios(){
+    const usuariosApi = await api.get('/cadastro')
+    setUsuarios(usuariosApi.data)
+    console.log(usuarios)
+  }
+  useEffect(()=>{
+    getUsuarios()
+  },[])
+
   return(
     <div className="container">
       <form>
